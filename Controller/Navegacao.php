@@ -1,4 +1,8 @@
 <?php
+    if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    }
 
     if(isset($_POST["btnPrimeiroAcesso"]))
     {
@@ -12,7 +16,7 @@
             $uController = new UsuarioController();
             
             if($uController->login($_POST['txtLogin'], $_POST['txtSenha']))
-            {           
+            {          
                 include_once '../View/principal.php';
             }
             else
@@ -27,7 +31,7 @@
                 $uController = new UsuarioController();
                 
                 if($uController->inserir($_POST["txtNome"], $_POST["txtCPF"], $_POST["txtEmail"], $_POST['txtSenha']))
-                {           
+                {          
                     include_once '../View/cadastroRealizado.php';
                 }
                 else
@@ -56,7 +60,7 @@
                             
                             if($uController->atualizar($_POST["txtID"], $_POST["txtNome"], $_POST["txtCPF"], $_POST["txtEmail"],
                             date('Y-m-d', strtotime($_POST['txtData']))))
-                            {           
+                            {          
                                 include_once '../View/atualizacaoRealizada.php';
                             }
                             else
@@ -75,7 +79,7 @@
                                 $fController = new FormacaoAcadController();
                                 
                                 if($fController->inserir(date('Y-m-d', strtotime($_POST['txtInicioFA'])), date('Y-m-d', strtotime($_POST["txtFimFA"])), $_POST["txtDescFA"], unserialize($_SESSION['Usuario'])->getID()) != false)
-                                {           
+                                {          
                                     include_once '../View/cadastroRealizado.php';
                                 }
                                 else
@@ -93,12 +97,12 @@
                                         $fController = new FormacaoAcadController();
                                         
                                         if($fController->remover($_POST['id']) == true)
-                                        {           
+                                        {          
                                             include_once '../View/informacaoExcluida.php';
                                         }
                                         else
                                         {
-                                            include_once '../View/operacaoNaoRealizda.php';
+                                            include_once '../View/operacaoNaoRealzda.php';
                                         }
                                     
                                     }
@@ -111,7 +115,7 @@
                                             $epController = new ExperienciaProfissionalController();
                                             
                                             if($epController->inserir(date('Y-m-d', strtotime($_POST['txtInicioEP'])), date('Y-m-d', strtotime($_POST["txtFimEP"])), $_POST["txtEmpEP"], $_POST["txtDescEP"], unserialize($_SESSION['Usuario'])->getID()) != false)
-                                            {           
+                                            {          
                                                 include_once '../View/informacaoInserida.php';
                                             }
                                             else
@@ -130,7 +134,7 @@
                                                 $epController = new ExperienciaProfissionalController();
                                                 
                                                 if($epController->remover($_POST['idEP']) == true)
-                                                {           
+                                                {          
                                                     include_once '../View/informacaoExcluida.php';
                                                 }
                                                 else
@@ -148,7 +152,7 @@
                                                     $fController = new OutrasFormacoesController();
                                                     
                                                     if($fController->inserir(date('Y-m-d', strtotime($_POST['txtInicioOF'])), date('Y-m-d', strtotime($_POST["txtFimOF"])), $_POST["txtDescOF"], unserialize($_SESSION['Usuario'])->getID()) != false)
-                                                    {           
+                                                    {          
                                                         include_once '../View/informacaoInserida.php';
                                                     }
                                                     else
@@ -166,7 +170,7 @@
                                                         $fController = new OutrasFormacoesController();
                                                         
                                                         if($fController->remover($_POST['id']) == true)
-                                                        {           
+                                                        {          
                                                             include_once '../View/informacaoExcluida.php';
                                                         }
                                                         else
@@ -183,7 +187,7 @@
                                                             $aController = new AdministradorController();
                                                             
                                                             if($aController->login($_POST['txtLoginADM'], $_POST['txtSenhaADM']))
-                                                            {           
+                                                            {          
                                                                 include_once '../View/ADMPrincipal.php';
                                                             }
                                                             else
@@ -194,8 +198,8 @@
                                                         else{
                                                             if(isset($_POST["btnListarCadastrados"]) || isset($_POST["btnVoltarLista"]))
                                                             {
-                                                                       
-                                                                    include_once '../View/ADMListarCadastrados.php';
+                                                                   
+                                                                include_once '../View/ADMListarCadastrados.php';
                                                             }
                                                             else{
                                                                 if(isset($_POST["btnListarAdministradores"]))
@@ -242,11 +246,11 @@
                                             }
                                         }
                                     }
-                                }
                             }
                         }
                     }
                 }
             }
         }
+    }
 ?>
